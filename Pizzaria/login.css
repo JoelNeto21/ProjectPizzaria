@@ -1,0 +1,122 @@
+body {
+  font-family: "Ubuntu", Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background: url("img-back.jpeg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+.login-container {
+  background: #000000ae;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: stretch;
+}
+
+.login-container h2 {
+  margin: 0 0 1rem 0;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.login-container label {
+  font-size: 1rem;
+  color: white;
+  margin-bottom: 0.3rem;
+  font-weight: bold;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  /* width: 100%; */
+  padding: 0.7rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  background: #f1f2f6;
+  transition: border 0.2s;
+  font-family: inherit;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+  border: 1.5px solid green;
+  outline: none;
+}
+
+.login-container button {
+  background: green;
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.login-container button:hover {
+  background: green;
+}
+
+.mensagem {
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: opacity 0.3s;
+}
+
+.mensagem.sucesso {
+  color: rgb(100, 255, 100);
+  /* color: #fff; */
+}
+
+.mensagem.erro {
+  color: rgb(255, 99, 99);
+  /* color: #fff; */
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .login-container {
+    width: 95vw;
+    padding: 1.5rem 0.5rem;
+  }
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+  padding: 10px 0 30px 0;
+}
