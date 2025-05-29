@@ -20,30 +20,30 @@
     <title>Pizzaria</title>
   </head>
   <body>
+    <div class="menu">
+      <button onclick="mostrarSecao('cadastro')">
+        <i class="fas fa-pizza-slice icon"></i>
+        Cadastrar Pizza
+      </button>
+      <button onclick="mostrarSecao('consulta')">
+        <i class="fas fa-search icon"></i>
+        Consultar Pizzas
+      </button>
+      <button onclick="mostrarSecao('alterar')">
+        <i class="fas fa-edit icon"></i>
+        Alterar Pizza
+      </button>
+      <button onclick="mostrarSecao('pedido')">
+        <i class="fas fa-shopping-cart icon"></i>
+        Realizar Pedido
+      </button>
+      <button onclick="gerarRelatorioPedidos()">
+        <i class="fa-solid fa-flag"></i>
+        Relatório de Pedidos
+      </button>
+    </div>
     <div class="container">
       <h1>PIZZARIA SENAI - SABOR SEM IGUAL!</h1>
-      <div class="menu">
-        <button onclick="mostrarSecao('cadastro')">
-          <i class="fas fa-pizza-slice icon"></i>
-          Cadastrar Pizza
-        </button>
-        <button onclick="mostrarSecao('consulta')">
-          <i class="fas fa-search icon"></i>
-          Consultar Pizzas
-        </button>
-        <button onclick="mostrarSecao('alterar')">
-          <i class="fas fa-edit icon"></i>
-          Alterar Pizza
-        </button>
-        <button onclick="mostrarSecao('pedido')">
-          <i class="fas fa-shopping-cart icon"></i>
-          Realizar Pedido
-        </button>
-        <button onclick="gerarRelatorioPedidos()">
-          <i class="fa-solid fa-flag"></i>
-          Relatório de Pedidos
-        </button>
-      </div>
 
       <!-- Seção de Cadastro -->
       <div id="cadastro" class="hidden">

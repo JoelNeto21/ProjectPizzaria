@@ -1,0 +1,125 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Ubuntu', Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.menu {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: 220px;
+  min-height: 100vh;
+  background: #1a4d1a;
+  padding: 30px 0 0 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+  gap: 0;
+}
+
+.container {
+  flex: 1;
+  margin-left: 280px; /* largura do menu (220px) + margem desejada (20px) */
+  margin-right: 60px; /* margem direita */
+  max-width: calc(100vw - 280px - 60px); /* 100vw - menu - margem direita */
+  min-width: 320px;
+  background: white;
+  padding: 32px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+  margin-bottom: 40px;
+  display: block;
+  position: static;
+  left: auto;
+  transform: none;
+}
+
+h1, h2 {
+  text-align: center;
+  color: #444;
+}
+
+.menu button {
+  width: 100%;
+  border-radius: 0;
+  border: none;
+  background: none;
+  color: #fff;
+  font-size: 18px;
+  padding: 18px 24px;
+  text-align: left;
+  transition: background 0.2s, color 0.2s;
+  margin: 0;
+}
+
+.menu button:hover,
+.menu button.active {
+  background: #267326;
+  color: #fff;
+}
+
+.form-group {
+  padding-right: 22px;
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-family: 'Ubuntu', Verdana, Geneva, Tahoma, sans-serif;
+}
+
+input, button {
+  width: 100%; 
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: 'Ubuntu', Verdana, Geneva, Tahoma, sans-serif;
+}
+
+button {
+  background-color: green;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: 'Ubuntu', Verdana, Geneva, Tahoma, sans-serif;
+}
+
+button:hover {
+  background-color: green;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
+
+.icon {
+  margin-right: 5px;
+}
