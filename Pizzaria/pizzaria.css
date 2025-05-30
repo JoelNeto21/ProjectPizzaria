@@ -1,3 +1,7 @@
+* {
+  font-size: inherit;
+}
+
 body {
   display: flex;
   min-height: 100vh;
@@ -14,6 +18,7 @@ body {
 html,
 body {
   height: 100%;
+  font-size: 13px; /* Tamanho base global */
 }
 
 body {
@@ -22,58 +27,65 @@ body {
   flex-direction: column;
 }
 
+/* Ícone sanduíche */
+.menu-toggle {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  margin-right: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  z-index: 300;
+}
+
+/* Navbar */
+.navbar {
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 70px;
+  background: #013d00;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding-left: 10px;
+}
+
+.navbar h1 {
+  margin: 0;
+  font-size: 1.2rem; /* Tamanho do título principal */
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 1px 1px 4px #2228;
+  margin-left: 10px;
+}
+
+/* Menu lateral */
 .menu {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
   gap: 0;
-  margin-bottom: 0;
+  margin-bottom: 0px;
   flex-wrap: unset;
   width: 220px;
   min-height: 100vh;
-  background: #000000b7;
+  background: #079100b7;
   padding: 30px 0 0 0;
   position: fixed;
   left: 0;
-  top: 0;
+  top: 70px; /* altura da navbar */
   z-index: 100;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
-}
-
-.container {
-  flex: 1;
-  margin-left: 240px; /* largura do menu (220px) + margem desejada (20px) */
-  margin-right: 30px; /* margem direita */
-  max-width: calc(100vw - 240px - 30px); /* 100vw - menu - margem direita */
-  min-width: 320px;
-  background: #ffffffc6;
-  padding: 32px 24px;
-  border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
-  margin-top: 40px;
-  margin-bottom: 40px;
-  display: block;
-  position: static;
-  left: auto;
-  transform: none;
-}
-
-h1,
-h2 {
-  text-align: center;
-  color: #444;
-  letter-spacing: 1px;
-}
-
-.menu {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: 0;
-  margin-bottom: 0;
-  flex-wrap: unset;
+  transition: left 0.3s;
+  font-size: 0.95rem; /* Tamanho padrão do menu lateral */
 }
 
 .menu button {
@@ -83,7 +95,7 @@ h2 {
   border-radius: 6px;
   background-color: transparent;
   color: white;
-  font-size: 1.1rem;
+  font-size: 0.95rem; /* Tamanho dos botões do menu lateral */
   font-family: inherit;
   font-weight: bold;
   transition: background 0.2s, transform 0.2s;
@@ -98,6 +110,39 @@ h2 {
   transform: translateY(-2px) scale(1.03);
 }
 
+/* Container */
+.container {
+  flex: 1;
+  margin-left: 250px;      /* Largura do menu lateral */
+  margin-right: 30px;      /* Margem direita */
+  max-width: calc(100vw - 250px - 30px); /* Largura máxima */
+  min-width: 320px;
+  background: #ffffffc6;
+  padding: 32px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  margin-top: 90px; /* altura da navbar + espaçamento desejado */
+  margin-bottom: 40px;
+  display: block;
+  position: static;
+  left: auto;
+  transform: none;
+  transition: margin-left 0.3s, max-width 0.3s;
+}
+
+h1,
+h2 {
+  text-align: center;
+  color: #444;
+  letter-spacing: 1px;
+  font-size: 1.1rem; /* ou outro valor menor que preferir */
+}
+
+/* Títulos das abas do container */
+.container h2, .container h3 {
+  font-size: 1.05rem; /* Tamanho dos títulos das abas */
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -110,6 +155,7 @@ label {
   margin-bottom: 6px;
   font-weight: bold;
   color: #333;
+  font-size: 0.95rem; /* Tamanho dos labels dos inputs */
 }
 
 input[type="text"],
@@ -119,7 +165,7 @@ input[type="number"] {
   padding: 0.7rem;
   border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: 1rem;
+  font-size: 0.85rem;
   margin-bottom: 1rem;
   background: #f1f2f6;
   transition: border 0.2s;
@@ -139,7 +185,7 @@ button[type="submit"],
   border: none;
   padding: 0.8rem;
   border-radius: 5px;
-  font-size: 1.1rem;
+  font-size: 1rem; /* Tamanho dos botões do container */
   cursor: pointer;
   transition: background 0.2s;
   font-family: inherit;
@@ -168,6 +214,7 @@ td {
   border: 1px solid #ddd;
   padding: 10px 8px;
   text-align: left;
+  font-size: 0.95rem; /* Tamanho do texto das tabelas */
 }
 
 th {
@@ -191,13 +238,13 @@ p,
   border-radius: 5px;
   margin-bottom: 10px;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.95rem; /* Tamanho das mensagens */
 }
 
 .mensagem.sucesso {
   /* background-color: rgba(68, 203, 68, 0.838);
   color: #fff; */
-  font-size: 20px;
+  font-size: 1.1rem; /* Destaque para mensagens importantes */
 
   color: rgb(0, 255, 0);
 }
@@ -205,52 +252,13 @@ p,
 .mensagem.erro {
   /* background-color: rgba(245, 65, 65, 0.84);
   color: #fff; */
-  font-size: 20px;
+  font-size: 1.1rem; /* Destaque para mensagens importantes */
 
   color: rgb(255, 0, 0);
 }
 
 .hidden {
   display: none;
-}
-
-/* Ícone sanduíche */
-.menu-toggle {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 2rem;
-  margin-right: 18px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  z-index: 300;
-}
-
-/* Navbar: alinhar ícone e título */
-.navbar {
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 70px;
-  background: #000000;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  z-index: 200;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  padding-left: 10px;
-}
-
-.navbar h1 {
-  margin: 0;
-  font-size: 2rem;
-  letter-spacing: 2px;
-  color: #fff;
-  text-shadow: 1px 1px 4px #2228;
-  margin-left: 10px;
 }
 
 /* Transições para menu e container */
@@ -269,7 +277,7 @@ p,
 
 /* Container ocupa toda a tela quando menu escondido */
 .container.menu-escondido {
-  margin-left: 0;
+  margin-left: 30px;
   max-width: calc(100vw - 30px);
 }
 
@@ -281,7 +289,7 @@ p,
 /* Responsivo: ajuste se necessário */
 @media (max-width: 700px) {
   .container.menu-escondido {
-    margin-left: 0;
+    margin-left: 30px;
     max-width: 100vw;
   }
   .container {
@@ -300,14 +308,161 @@ p,
 
 .footer {
   flex-shrink: 0;
-  margin-left: 240px; /* igual ao .container */
-  margin-right: 30px; /* igual ao .container */
-  max-width: calc(100vw - 240px - 30px); /* igual ao .container */
   width: auto;
   text-align: center;
   color: white;
   margin-top: 20px;
   padding: 10px 0 30px 0;
   margin-bottom: 0px;
-  background: none; /* opcional, se quiser igual ao container */
+  background: none;
+  font-size: 0.9rem;
+  transition: margin-left 0.3s, max-width 0.3s;
 }
+
+/* Footer ocupa toda a tela quando menu escondido */
+.footer.menu-escondido {
+  margin-left: 30px;
+  max-width: calc(100vw - 30px);
+}
+
+/* =========================
+   FONTES: TAMANHOS POR ÁREA
+   ========================= */
+
+/* 1. NAVBAR (barra principal) */
+.navbar h1 {
+  font-size: 1.8rem; /* Tamanho do título principal */
+}
+
+/* 2. MENU LATERAL */
+.menu button {
+  font-size: 1.2rem; /* Tamanho dos botões do menu lateral */
+}
+
+/* 3. BOTÕES DO CONTAINER */
+.container button:not(.menu button),
+button[type="submit"] {
+  font-size: 0.8rem; /* Tamanho dos botões do container */
+}
+
+/* 4. MENSAGENS (sucesso, erro, info) */
+.mensagem,
+p.mensagem {
+  font-size: 0.5rem; /* Tamanho das mensagens */
+}
+.mensagem.sucesso,
+.mensagem.erro {
+  font-size: 1.03rem; /* Destaque para mensagens importantes */
+}
+
+/* 5. LABELS DOS INPUTS */
+label {
+  font-size: 1.0rem; /* Tamanho dos labels dos inputs */
+}
+
+/* 6. TÍTULOS DAS ABAS DO CONTAINER */
+.container h2, .container h3 {
+  font-size: 1.3rem; /* Tamanho dos títulos das abas */
+}
+
+/* 7. FOOTER */
+.footer {
+  font-size: 0.9rem; /* Tamanho do texto do rodapé */
+}
+
+/* 8. TABELAS */
+th, td {
+  font-size: 0.8rem; /* Tamanho do texto das tabelas */
+}
+
+/* =========================
+   FONTES: TAMANHO BASE
+   ========================= */
+html, body {
+  font-size: 13px; /* Tamanho base global */
+}
+
+/* =========================
+   RESTANTE DO SEU CSS
+   ========================= */
+
+/* Navbar */
+.navbar h1 {
+  margin: 0;
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 1px 1px 4px #2228;
+  margin-left: 10px;
+}
+
+/* Menu lateral */
+.menu {
+  /* ...demais estilos... */
+}
+.menu button {
+  /* ...demais estilos... */
+}
+
+/* Botões do container */
+.container button:not(.menu button),
+button[type="submit"] {
+  /* ...demais estilos... */
+}
+
+/* Mensagens */
+.mensagem,
+p.mensagem {
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.mensagem.sucesso {
+  color: rgb(0, 255, 0);
+}
+.mensagem.erro {
+  color: rgb(255, 0, 0);
+}
+
+/* Labels */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Títulos das abas do container */
+.container h2, .container h3 {
+  /* ...demais estilos... */
+}
+
+/* Footer */
+.footer {
+  flex-shrink: 0;
+  margin-left: 250px;
+  margin-right: 30px;
+  max-width: calc(100vw - 250px - 30px);
+  width: auto;
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+  padding: 10px 0 30px 0;
+  margin-bottom: 0px;
+  background: none;
+}
+
+/* Tabelas */
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px 8px;
+  text-align: left;
+}
+th {
+  background-color: green;
+  color: white;
+  font-weight: bold;
+}
+
+/* ...restante do seu CSS permanece igual... */

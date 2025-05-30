@@ -1,3 +1,53 @@
+/* =========================
+   FONTES: TAMANHOS POR ÁREA
+   ========================= */
+
+/* 1. TÍTULO DO LOGIN */
+.login-container h2 {
+  font-size: 1.3rem; /* Tamanho do título do login */
+}
+
+/* 2. LABELS DOS INPUTS */
+.login-container label {
+  font-size: 1rem; /* Tamanho dos labels */
+}
+
+/* 3. INPUTS */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  font-size: 1rem; /* Tamanho dos campos de texto */
+}
+
+/* 4. BOTÃO DE LOGIN */
+.login-container button {
+  font-size: 1.1rem; /* Tamanho do botão */
+}
+
+/* 5. MENSAGENS */
+.mensagem {
+  font-size: 0.85rem; /* Tamanho das mensagens padrão */
+}
+.mensagem.sucesso,
+.mensagem.erro {
+  font-size: 0.85rem; /* Destaque para mensagens importantes */
+}
+
+/* 6. FOOTER */
+.footer {
+  font-size: 0.95rem; /* Tamanho do texto do rodapé */
+}
+
+/* =========================
+   FONTES: TAMANHO BASE
+   ========================= */
+html, body {
+  font-size: 14px; /* Tamanho base global */
+}
+
+/* =========================
+   RESTANTE DO SEU CSS
+   ========================= */
+
 body {
   font-family: "Ubuntu", Verdana, Geneva, Tahoma, sans-serif;
   margin: 0;
@@ -32,7 +82,6 @@ body {
 }
 
 .login-container label {
-  font-size: 1rem;
   color: white;
   margin-bottom: 0.3rem;
   font-weight: bold;
@@ -40,11 +89,9 @@ body {
 
 .login-container input[type="text"],
 .login-container input[type="password"] {
-  /* width: 100%; */
   padding: 0.7rem;
   border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: 1rem;
   margin-bottom: 1rem;
   background: #f1f2f6;
   transition: border 0.2s;
@@ -63,7 +110,6 @@ body {
   border: none;
   padding: 0.8rem;
   border-radius: 5px;
-  font-size: 1.1rem;
   cursor: pointer;
   transition: background 0.2s;
   font-family: inherit;
@@ -81,21 +127,15 @@ body {
   text-align: center;
   margin-bottom: 10px;
   font-weight: bold;
-  font-size: 1rem;
   transition: opacity 0.3s;
 }
 
 .mensagem.sucesso {
-  font-size: 20px;
   color: rgb(0, 255, 0);
-  /* color: #fff; */
 }
 
 .mensagem.erro {
-  font-size: 20px;
-
   color: rgb(255, 0, 0);
-  /* color: #fff; */
 }
 
 .hidden {
