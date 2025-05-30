@@ -1,45 +1,43 @@
-function exibirMensagem(texto, tipo){
-  const mensagem = document.getElementById('mensagem')
-  mensagem.textContent = texto 
+function exibirMensagem(texto, tipo) {
+  // Procura tanto por 'msg' quanto por 'mensagem'
+  const msg = document.getElementById("msg") || document.getElementById("mensagem");
+  if (!msg) return; // Evita erro se não existir
+  msg.textContent = texto;
+  msg.className = `mensagem ${tipo}`;
+  msg.classList.remove("hidden");
 
-  // Adiciona a classe de estilo (sucesso ou erro)
-  mensagem.className = `mensagem ${tipo}`
-  mensagem.classList.remove('hidden')
-
-  // Remove a mensagem após 3 segundos
   setTimeout(() => {
-    mensagem.classList.add('hidden')
-  }, 3000)
+    msg.classList.add("hidden");
+  }, 3000);
 }
 
-function validarLogin(){
-  const usuario = document.getElementById('usuario').value
-  const senha = document.getElementById('senha').value
+function validarLogin() {
+  const usuario = document.getElementById("usuario").value;
+  const senha = document.getElementById("senha").value;
 
-  // Usuário e senha  fixos para validação
-  // (você pode substituir por algo mais avançado)
-  const usuarioCorreto = 'admin'
-  const senhaCorreta = '1234'
+  // Usuário e senha fixos para validação
+  const usuarioCorreto = "admin";
+  const senhaCorreta = "1234";
 
   if (usuario === usuarioCorreto && senha === senhaCorreta) {
-    exibirMensagem('Login realizado com sucesso!', 'sucesso')
+    exibirMensagem("Login realizado com sucesso!", "sucesso");
     setTimeout(() => {
-      // Redireciona para a página principal
-      window.location.href = 'pizzaria.html'
-    }, 1000)
-  } else{
-    exibirMensagem('Usuário ou senha incorretos', 'erro')
+      window.location.href = "pizzaria.html";
+    }, 1000);
+  } else {
+    exibirMensagem("Usuário ou senha incorretos.", "erro");
   }
 }
 
-// ------------------------------------------------------------
-
 let pizzaria = [];
-const msg = document.getElementById("msg");
+let pizzaParaAlterar = null;
 
 function mostrarSecao(secao) {
   document.getElementById("cadastro").classList.add("hidden");
   document.getElementById("consulta").classList.add("hidden");
+  document.getElementById("alterar").classList.add("hidden");
+  document.getElementById("venda").classList.add("hidden");
+  document.getElementById("relatorio-vendas").classList.add("hidden");
 
   document.getElementById(secao).classList.remove("hidden");
 }
@@ -47,16 +45,15 @@ function mostrarSecao(secao) {
 function adicionarPizza() {
   const nome = document.getElementById("nome").value;
   const ingredientes = document.getElementById("ingredientes").value;
-  const preco = parseFloat(document.getElementById("preco").value).toFixed(2);
+  const preco = parseFloat(document.getElementById("preco").value);
+
   const erroNome = document.getElementById("erro-nome");
+  erroNome.classList.add("hidden");
+  erroNome.textContent = "";
 
   const sameNome = pizzaria.filter((pizza) =>
     pizza.nome.toLowerCase().includes(nome.toLowerCase())
   );
-
-  // Esconde mensagem específica antes de validar
-  erroNome.classList.add("hidden");
-  erroNome.textContent = "";
 
   if (nome && ingredientes && preco) {
     if (sameNome.length === 0) {
@@ -65,17 +62,8 @@ function adicionarPizza() {
       document.getElementById("ingredientes").value = "";
       document.getElementById("preco").value = "";
       atualizarLista();
-
-      msg.classList.remove('hidden');
-      msg.style.backgroundColor = "rgba(68, 203, 68, 0.838)";
-      msg.textContent = " ✓  Pizza adicionada com sucesso!";
-
-      setTimeout(() => {
-        msg.classList.add("hidden");
-      }, 5000);
-
+      exibirMensagem("Pizza adicionada com sucesso!", "sucesso");
     } else {
-      // Mostra mensagem de erro específica abaixo do input
       erroNome.textContent = "✕ Pizza já cadastrada...";
       erroNome.classList.remove("hidden");
       setTimeout(() => {
@@ -83,15 +71,8 @@ function adicionarPizza() {
       }, 5000);
     }
   } else {
-    msg.classList.remove('hidden');
-    msg.style.backgroundColor = "rgba(245, 65, 65, 0.84)";
-    msg.textContent = " ✕  Por favor, preencha todos os campos...";
-
-    setTimeout(() => {
-      msg.classList.add("hidden");
-    }, 5000);
+    exibirMensagem("Por favor, preencha todos os campos.", "erro");
   }
-
 }
 
 function buscarPizza() {
@@ -100,6 +81,45 @@ function buscarPizza() {
     pizza.nome.toLowerCase().includes(busca)
   );
   atualizarLista(resultados);
+}
+
+function buscarPizzaParaAlterar() {
+  const busca = document.getElementById("busca-alterar").value.toLowerCase();
+  pizzaParaAlterar = pizzaria.find((pizza) =>
+    pizza.nome.toLowerCase().includes(busca)
+  );
+
+  if (pizzaParaAlterar) {
+    document.getElementById("form-alterar").classList.remove("hidden");
+    document.getElementById("novo-nome").value = pizzaParaAlterar.nome;
+    document.getElementById("novos-ingredientes").value =
+      pizzaParaAlterar.ingredientes;
+    document.getElementById("novo-preco").value = pizzaParaAlterar.preco;
+    exibirMensagem("Pizza encontrada! Você pode alterá-la agora.", "sucesso");
+  } else {
+    exibirMensagem("Pizza não encontrada.", "erro");
+  }
+}
+
+function alterarPizza() {
+  if (pizzaParaAlterar) {
+    const novoNome = document.getElementById("novo-nome").value;
+    const novosIngredientes =
+      document.getElementById("novos-ingredientes").value;
+    const novoPreco = parseFloat(document.getElementById("novo-preco").value);
+
+    if (novoNome && novosIngredientes && novoPreco) {
+      pizzaParaAlterar.nome = novoNome;
+      pizzaParaAlterar.ingredientes = novosIngredientes;
+      pizzaParaAlterar.preco = novoPreco;
+
+      atualizarLista();
+      exibirMensagem("Pizza alterada com sucesso!", "sucesso");
+      document.getElementById("form-alterar").classList.add("hidden");
+    } else {
+      exibirMensagem("Por favor, preencha todos os campos.", "erro");
+    }
+  }
 }
 
 function atualizarLista(lista = pizzaria) {
@@ -111,7 +131,88 @@ function atualizarLista(lista = pizzaria) {
     row.innerHTML = `
         <td>${pizza.nome}</td>
         <td>${pizza.ingredientes}</td>
-        <td>R$${pizza.preco}</td>`;
+        <td>R$ ${parseFloat(pizza.preco).toFixed(2)}</td>
+      `;
     table.appendChild(row);
   });
 }
+
+// --- Registro de Vendas ---
+let vendas = [];
+
+function registrarVenda() {
+  const nome = document.getElementById("venda-nome").value;
+  const quantidade = parseInt(
+    document.getElementById("venda-quantidade").value
+  );
+  const comprador = document.getElementById("venda-comprador").value;
+
+  if (nome && quantidade && comprador) {
+    const pizza = pizzaria.find(
+      (pizza) => pizza.nome.toLowerCase() === nome.toLowerCase()
+    );
+
+    if (pizza) {
+      const total = pizza.preco * quantidade;
+      vendas.push({ nome: pizza.nome, quantidade, comprador, total });
+
+      const listaVendas = document.getElementById("lista-vendas");
+      const item = document.createElement("li");
+      item.textContent = `Pizza: ${
+        pizza.nome
+      }, Quantidade: ${quantidade}, Comprador: ${comprador}, Total: R$ ${total.toFixed(
+        2
+      )}`;
+      listaVendas.appendChild(item);
+
+      exibirMensagem("Venda registrada com sucesso!", "sucesso");
+      document.getElementById("venda-nome").value = "";
+      document.getElementById("venda-quantidade").value = "";
+      document.getElementById("venda-comprador").value = "";
+    } else {
+      exibirMensagem("Pizza não encontrada no cardápio.", "erro");
+    }
+  } else {
+    exibirMensagem("Por favor, preencha todos os campos.", "erro");
+  }
+}
+
+// --- Relatório de Vendas ---
+function gerarRelatorioVendas() {
+  const tabelaRelatorio = document.getElementById("tabela-relatorio-vendas");
+  tabelaRelatorio.innerHTML = "";
+
+  if (vendas.length === 0) {
+    exibirMensagem("Nenhuma venda registrada.", "erro");
+    return;
+  }
+
+  let totalVendas = 0;
+
+  vendas.forEach((venda) => {
+    const linha = document.createElement("tr");
+    linha.innerHTML = `
+        <td>${venda.nome}</td>
+        <td>${venda.quantidade}</td>
+        <td>${venda.comprador}</td>
+        <td>R$ ${venda.total.toFixed(2)}</td>
+      `;
+    tabelaRelatorio.appendChild(linha);
+
+    totalVendas += venda.total;
+  });
+
+  const linhaTotal = document.createElement("tr");
+  linhaTotal.innerHTML = `
+      <td><strong>Total</strong></td>
+      <td></td>
+      <td></td>
+      <td><strong>R$ ${totalVendas.toFixed(2)}</strong></td>
+    `;
+  tabelaRelatorio.appendChild(linhaTotal);
+
+  document.getElementById("relatorio-vendas").classList.remove("hidden");
+}
+
+const el = document.getElementById("algum-id");
+if (el) el.classList.add("hidden");

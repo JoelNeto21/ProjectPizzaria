@@ -35,13 +35,13 @@
           <i class="fas fa-edit icon"></i>
           Alterar Pizza
         </button>
-        <button onclick="mostrarSecao('pedido')">
+        <button onclick="mostrarSecao('venda')">
           <i class="fas fa-shopping-cart icon"></i>
           Realizar Pedido
         </button>
-        <button onclick="gerarRelatorioPedidos()">
+        <button onclick="gerarRelatorioVendas()">
           <i class="fa-solid fa-flag"></i>
-          Relatório de Pedidos
+          Relatório de Vendas
         </button>
       </div>
 
@@ -96,6 +96,92 @@
           <tbody id="lista-pizzas">
             <!-- Pizzas serão exibidas aqui -->
           </tbody>
+        </table>
+      </div>
+
+      <!-- Seção de Alteração -->
+      <div id="alterar" class="hidden">
+        <h2>Alterar Pizza</h2>
+        <input
+          type="text"
+          id="busca-alterar"
+          placeholder="Buscar por nome"
+          oninput="buscarPizzaParaAlterar()"
+        />
+        <div id="form-alterar" class="hidden">
+          <div class="form-group">
+            <label for="novo-nome">Novo Nome:</label>
+            <input
+              type="text"
+              id="novo-nome"
+              placeholder="Digite o novo nome"
+            />
+          </div>
+          <div class="form-group">
+            <label for="novos-ingredientes">Novos Ingredientes:</label>
+            <input
+              type="text"
+              id="novos-ingredientes"
+              placeholder="Digite os novos ingredientes"
+            />
+          </div>
+          <div class="form-group">
+            <label for="novo-preco">Novo Preço:</label>
+            <input
+              type="number"
+              id="novo-preco"
+              placeholder="Digite o novo preço"
+            />
+          </div>
+          <button onclick="alterarPizza()">Salvar Alterações</button>
+        </div>
+      </div>
+
+      <!-- Seção de Venda -->
+      <div id="venda" class="hidden">
+        <h2>Registrar Venda</h2>
+        <div class="form-group">
+          <label for="venda-nome">Nome da Pizza:</label>
+          <input
+            type="text"
+            id="venda-nome"
+            placeholder="Digite o nome da pizza"
+          />
+        </div>
+        <div class="form-group">
+          <label for="venda-quantidade">Quantidade:</label>
+          <input
+            type="number"
+            id="venda-quantidade"
+            placeholder="Digite a quantidade"
+          />
+        </div>
+        <div class="form-group">
+          <label for="venda-comprador">Nome do Comprador:</label>
+          <input
+            type="text"
+            id="venda-comprador"
+            placeholder="Digite o nome do comprador"
+          />
+        </div>
+        <button onclick="registrarVenda()">Registrar Venda</button>
+        <h3>Vendas Realizadas</h3>
+        <ul id="lista-vendas"></ul>
+      </div>
+
+      <!-- Seção de Relatório de Vendas -->
+      <div id="relatorio-vendas" class="hidden">
+        <h3>Relatório de Vendas</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Quantidade</th>
+              <th>Comprador</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-relatorio-vendas"></tbody>
         </table>
       </div>
     </div>
