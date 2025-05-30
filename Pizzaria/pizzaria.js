@@ -18,13 +18,17 @@ function validarLogin() {
   const usuarioCorreto = "admin";
   const senhaCorreta = "1234";
 
-  if (usuario === usuarioCorreto && senha === senhaCorreta) {
-    exibirMensagem("Login realizado com sucesso!", "sucesso");
-    setTimeout(() => {
-      window.location.href = "pizzaria.html";
-    }, 1000);
+  if (usuario && senha) {
+    if (usuario === usuarioCorreto && senha === senhaCorreta) {
+      exibirMensagem("Login realizado com sucesso!", "sucesso");
+      setTimeout(() => {
+        window.location.href = "pizzaria.html";
+      }, 1000);
+    } else {
+      exibirMensagem("Usuário ou senha incorretos", "erro");
+    }
   } else {
-    exibirMensagem("Usuário ou senha incorretos.", "erro");
+    exibirMensagem("Por favor, preencha todos os campos", "erro");
   }
 }
 
@@ -54,8 +58,8 @@ function adicionarPizza() {
   erroNome.classList.add("hidden");
   erroNome.textContent = "";
 
-  const sameNome = pizzaria.filter((pizza) =>
-    pizza.nome.toLowerCase() === nome.toLowerCase()
+  const sameNome = pizzaria.filter(
+    (pizza) => pizza.nome.toLowerCase() === nome.toLowerCase()
   );
 
   if (nome && ingredientes && !isNaN(preco) && preco > 0) {
@@ -67,7 +71,7 @@ function adicionarPizza() {
       document.getElementById("ingredientes").value = "";
       document.getElementById("preco").value = "";
       atualizarLista();
-      exibirMensagem("Pizza adicionada com sucesso!", "sucesso");
+      exibirMensagem("Pizza adicionada com sucesso!", "sucesso", "msg-cadastro");
     } else {
       erroNome.textContent = "✕ Pizza já cadastrada...";
       erroNome.classList.remove("hidden");
@@ -76,7 +80,7 @@ function adicionarPizza() {
       }, 5000);
     }
   } else {
-    exibirMensagem("Por favor, preencha todos os campos corretamente.", "erro");
+    exibirMensagem("Por favor, preencha todos os campos corretamente", "erro", "msg-cadastro");
   }
 }
 
@@ -86,12 +90,18 @@ function buscarPizza() {
     pizza.nome.toLowerCase().includes(busca)
   );
   atualizarLista(resultados);
+
+  if (resultados.length === 0) {
+    exibirMensagem("Nenhuma pizza encontrada", "erro", "msg-consulta");
+  } else {
+    document.getElementById("msg-consulta").classList.add("hidden");
+  }
 }
 
 function buscarPizzaParaAlterar() {
   const busca = document.getElementById("busca-alterar").value.trim();
-  pizzaParaAlterar = pizzaria.find((pizza) =>
-    pizza.codigo === busca.padStart(3, "0")
+  pizzaParaAlterar = pizzaria.find(
+    (pizza) => pizza.codigo === busca.padStart(3, "0")
   );
 
   if (pizzaParaAlterar) {
@@ -100,9 +110,9 @@ function buscarPizzaParaAlterar() {
     document.getElementById("novos-ingredientes").value =
       pizzaParaAlterar.ingredientes;
     document.getElementById("novo-preco").value = pizzaParaAlterar.preco;
-    exibirMensagem("Pizza encontrada! Você pode alterá-la agora.", "sucesso");
+    exibirMensagem("Pizza encontrada! Você pode alterá-la agora", "sucesso", "msg-alterar");
   } else {
-    exibirMensagem("Pizza não encontrada.", "erro");
+    exibirMensagem("Pizza não encontrada", "erro", "msg-alterar");
   }
 }
 
@@ -119,10 +129,10 @@ function alterarPizza() {
       pizzaParaAlterar.preco = novoPreco;
 
       atualizarLista();
-      exibirMensagem("Pizza alterada com sucesso!", "sucesso");
+      exibirMensagem("Pizza alterada com sucesso!", "sucesso", "msg-alterar");
       document.getElementById("form-alterar").classList.add("hidden");
     } else {
-      exibirMensagem("Por favor, preencha todos os campos.", "erro");
+      exibirMensagem("Por favor, preencha todos os campos", "erro", "msg-alterar");
     }
   }
 }
@@ -148,7 +158,9 @@ let vendas = [];
 
 function registrarVenda() {
   const nome = document.getElementById("venda-nome").value.trim();
-  const quantidade = parseInt(document.getElementById("venda-quantidade").value);
+  const quantidade = parseInt(
+    document.getElementById("venda-quantidade").value
+  );
   const comprador = document.getElementById("venda-comprador").value.trim();
 
   if (nome && !isNaN(quantidade) && quantidade > 0 && comprador) {
@@ -174,10 +186,10 @@ function registrarVenda() {
       document.getElementById("venda-quantidade").value = "";
       document.getElementById("venda-comprador").value = "";
     } else {
-      exibirMensagem("Pizza não encontrada no cardápio.", "erro", "msg-venda");
+      exibirMensagem("Pizza não encontrada no cardápio", "erro", "msg-venda");
     }
   } else {
-    exibirMensagem("Por favor, preencha todos os campos.", "erro", "msg-venda");
+    exibirMensagem("Por favor, preencha todos os campos", "erro", "msg-venda");
   }
 }
 
@@ -186,8 +198,11 @@ function gerarRelatorioVendas() {
   const tabelaRelatorio = document.getElementById("tabela-relatorio-vendas");
   tabelaRelatorio.innerHTML = "";
 
+  // Mostra a seção do relatório antes de exibir a mensagem
+  document.getElementById("relatorio-vendas").classList.remove("hidden");
+
   if (vendas.length === 0) {
-    exibirMensagem("Nenhuma venda registrada.", "erro");
+    exibirMensagem("Nenhuma venda registrada", "erro", "msg-relatorio");
     return;
   }
 
@@ -214,6 +229,13 @@ function gerarRelatorioVendas() {
       <td><strong>R$ ${totalVendas.toFixed(2)}</strong></td>
     `;
   tabelaRelatorio.appendChild(linhaTotal);
+}
 
-  document.getElementById("relatorio-vendas").classList.remove("hidden");
+// --------------------------------------------
+
+function toggleMenu() {
+  const menu = document.querySelector('.menu');
+  const container = document.querySelector('.container');
+  menu.classList.toggle('menu-escondido');
+  container.classList.toggle('menu-escondido');
 }
