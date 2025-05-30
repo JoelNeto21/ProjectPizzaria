@@ -23,12 +23,24 @@
     <div class="main-content">
       <div class="login-container">
         <h2>Login Pizzaria</h2>
-        <label for="usuario">Usuário:</label>
-        <input type="text" id="usuario" placeholder="Digite seu usuário" />
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" placeholder="Digite sua senha" />
-        <button onclick="validarLogin()">Entrar</button>
-        <div id="mensagem" class="mensagem hidden"></div>
+        <form onsubmit="validarLogin(); return false;">
+          <label for="usuario">Usuário:</label>
+          <input
+            type="text"
+            id="usuario"
+            placeholder="Digite seu usuário"
+            required
+          />
+          <label for="senha">Senha:</label>
+          <input
+            type="password"
+            id="senha"
+            placeholder="Digite sua senha"
+            required
+          />
+          <button type="submit">Entrar</button>
+          <div id="msg" class="mensagem hidden"></div>
+        </form>
       </div>
     </div>
     <footer class="footer">

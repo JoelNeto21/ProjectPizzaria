@@ -68,10 +68,13 @@
             type="number"
             id="preco"
             placeholder="Digite o preço da pizza"
+            required
+            min="0.01"
+            step="0.01"
           />
         </div>
         <button onclick="adicionarPizza()">Adicionar Pizza</button>
-        <p id="msg" class="hidden"></p>
+        <div id="msg" class="mensagem hidden"></div>
       </div>
 
       <!-- Seção de Consulta -->
@@ -88,6 +91,7 @@
         <table>
           <thead>
             <tr>
+              <th>Cód.</th>
               <th>Sabor</th>
               <th>Ingredientes</th>
               <th>Preço</th>
@@ -105,7 +109,7 @@
         <input
           type="text"
           id="busca-alterar"
-          placeholder="Buscar por nome"
+          placeholder="Buscar por código"
           oninput="buscarPizzaParaAlterar()"
         />
         <div id="form-alterar" class="hidden">
@@ -167,6 +171,7 @@
         <button onclick="registrarVenda()">Registrar Venda</button>
         <h3>Vendas Realizadas</h3>
         <ul id="lista-vendas"></ul>
+        <div id="msg-venda" class="mensagem hidden"></div> <!-- Troque o id aqui -->
       </div>
 
       <!-- Seção de Relatório de Vendas -->

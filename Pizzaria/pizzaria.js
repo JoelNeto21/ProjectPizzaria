@@ -1,7 +1,6 @@
-function exibirMensagem(texto, tipo) {
-  // Procura tanto por 'msg' quanto por 'mensagem'
-  const msg = document.getElementById("msg") || document.getElementById("mensagem");
-  if (!msg) return; // Evita erro se não existir
+function exibirMensagem(texto, tipo, idMsg = "msg") {
+  const msg = document.getElementById(idMsg);
+  if (!msg) return;
   msg.textContent = texto;
   msg.className = `mensagem ${tipo}`;
   msg.classList.remove("hidden");
@@ -29,8 +28,11 @@ function validarLogin() {
   }
 }
 
+// ---------------------------------------------------------------------------
+
 let pizzaria = [];
 let pizzaParaAlterar = null;
+let proximoCodigo = 1; // Controle de código
 
 function mostrarSecao(secao) {
   document.getElementById("cadastro").classList.add("hidden");
@@ -40,11 +42,12 @@ function mostrarSecao(secao) {
   document.getElementById("relatorio-vendas").classList.add("hidden");
 
   document.getElementById(secao).classList.remove("hidden");
+  if (secao === "consulta") atualizarLista();
 }
 
 function adicionarPizza() {
-  const nome = document.getElementById("nome").value;
-  const ingredientes = document.getElementById("ingredientes").value;
+  const nome = document.getElementById("nome").value.trim();
+  const ingredientes = document.getElementById("ingredientes").value.trim();
   const preco = parseFloat(document.getElementById("preco").value);
 
   const erroNome = document.getElementById("erro-nome");
@@ -52,12 +55,14 @@ function adicionarPizza() {
   erroNome.textContent = "";
 
   const sameNome = pizzaria.filter((pizza) =>
-    pizza.nome.toLowerCase().includes(nome.toLowerCase())
+    pizza.nome.toLowerCase() === nome.toLowerCase()
   );
 
-  if (nome && ingredientes && preco) {
+  if (nome && ingredientes && !isNaN(preco) && preco > 0) {
     if (sameNome.length === 0) {
-      pizzaria.push({ nome, ingredientes, preco });
+      const codigo = proximoCodigo.toString().padStart(3, "0"); // Novo: gera código tipo 001
+      pizzaria.push({ codigo, nome, ingredientes, preco });
+      proximoCodigo++; // Incrementa para o próximo cadastro
       document.getElementById("nome").value = "";
       document.getElementById("ingredientes").value = "";
       document.getElementById("preco").value = "";
@@ -71,7 +76,7 @@ function adicionarPizza() {
       }, 5000);
     }
   } else {
-    exibirMensagem("Por favor, preencha todos os campos.", "erro");
+    exibirMensagem("Por favor, preencha todos os campos corretamente.", "erro");
   }
 }
 
@@ -84,9 +89,9 @@ function buscarPizza() {
 }
 
 function buscarPizzaParaAlterar() {
-  const busca = document.getElementById("busca-alterar").value.toLowerCase();
+  const busca = document.getElementById("busca-alterar").value.trim();
   pizzaParaAlterar = pizzaria.find((pizza) =>
-    pizza.nome.toLowerCase().includes(busca)
+    pizza.codigo === busca.padStart(3, "0")
   );
 
   if (pizzaParaAlterar) {
@@ -129,10 +134,11 @@ function atualizarLista(lista = pizzaria) {
   lista.forEach((pizza) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-        <td>${pizza.nome}</td>
-        <td>${pizza.ingredientes}</td>
-        <td>R$ ${parseFloat(pizza.preco).toFixed(2)}</td>
-      `;
+      <td>${pizza.codigo}</td>
+      <td>${pizza.nome}</td>
+      <td>${pizza.ingredientes}</td>
+      <td>R$ ${parseFloat(pizza.preco).toFixed(2)}</td>
+    `;
     table.appendChild(row);
   });
 }
@@ -141,13 +147,11 @@ function atualizarLista(lista = pizzaria) {
 let vendas = [];
 
 function registrarVenda() {
-  const nome = document.getElementById("venda-nome").value;
-  const quantidade = parseInt(
-    document.getElementById("venda-quantidade").value
-  );
-  const comprador = document.getElementById("venda-comprador").value;
+  const nome = document.getElementById("venda-nome").value.trim();
+  const quantidade = parseInt(document.getElementById("venda-quantidade").value);
+  const comprador = document.getElementById("venda-comprador").value.trim();
 
-  if (nome && quantidade && comprador) {
+  if (nome && !isNaN(quantidade) && quantidade > 0 && comprador) {
     const pizza = pizzaria.find(
       (pizza) => pizza.nome.toLowerCase() === nome.toLowerCase()
     );
@@ -165,15 +169,15 @@ function registrarVenda() {
       )}`;
       listaVendas.appendChild(item);
 
-      exibirMensagem("Venda registrada com sucesso!", "sucesso");
+      exibirMensagem("Venda registrada com sucesso!", "sucesso", "msg-venda");
       document.getElementById("venda-nome").value = "";
       document.getElementById("venda-quantidade").value = "";
       document.getElementById("venda-comprador").value = "";
     } else {
-      exibirMensagem("Pizza não encontrada no cardápio.", "erro");
+      exibirMensagem("Pizza não encontrada no cardápio.", "erro", "msg-venda");
     }
   } else {
-    exibirMensagem("Por favor, preencha todos os campos.", "erro");
+    exibirMensagem("Por favor, preencha todos os campos.", "erro", "msg-venda");
   }
 }
 
@@ -213,6 +217,3 @@ function gerarRelatorioVendas() {
 
   document.getElementById("relatorio-vendas").classList.remove("hidden");
 }
-
-const el = document.getElementById("algum-id");
-if (el) el.classList.add("hidden");
